@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    android:fillViewport="true">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="18dp"
+    android:paddingTop="20dp"
+    android:paddingBottom="16dp">
+
+    <!-- HEADER -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PAY LISTEN"
+                android:textColor="#F7FAFC"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.03" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:text="Otomasi Pembayaran QRIS"
+                android:textColor="#8FA3BF"
+                android:textSize="10sp"
+                android:letterSpacing="0.02" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/badgeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_danger"
+            android:paddingHorizontal="13dp"
+            android:paddingVertical="7dp">
+
+            <View
+                android:id="@+id/statusDot"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/bg_badge_danger" />
+
+            <TextView
+                android:id="@+id/tvStatusBesar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BELUM SIAP"
+                android:textColor="@color/pl_danger"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.12" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Hairline gradasi -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="14dp"
+        android:background="@drawable/bg_hairline" />
+
+    <!-- SECTION: STATUS (5 kotak) -->
+    <!-- Section title bergaris -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="STATUS"
+            android:textColor="#7DD8EA"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.22" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:background="#1A2230" />
+
+        <TextView
+            android:id="@+id/tvStatusCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="0/5"
+            android:textColor="#5A6478"
+            android:textSize="9sp"
+            android:letterSpacing="0.08" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/boxNotif"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_tile_no"
+            android:paddingVertical="14dp"
+            android:clickable="true" android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvNotifStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✘"
+                android:textColor="#FF6B6B"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="NOTIF"
+                android:textColor="#77839A"
+                android:textSize="8sp"
+                android:letterSpacing="0.06" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/boxBattery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_tile_mid"
+            android:paddingVertical="13dp"
+            android:clickable="true" android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvBatteryStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✘"
+                android:textColor="@color/pl_danger"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="BATERAI"
+                android:textColor="#77839A"
+                android:textSize="8sp"
+                android:letterSpacing="0.06" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/boxOverlay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_tile_mid"
+            android:paddingVertical="13dp"
+            android:clickable="true" android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvOverlayStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="✘"
+                android:textColor="@color/pl_danger"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="OVERLAY"
+                android:textColor="#77839A"
+                android:textSize="8sp"
+                android:letterSpacing="0.06" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_tile_mid"
+            android:paddingVertical="13dp">
+
+            <TextView
+                android:id="@+id/tvServerStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textColor="#8FA3BF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="SERVER"
+                android:textColor="#77839A"
+                android:textSize="8sp"
+                android:letterSpacing="0.06" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/boxScreenOn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="7dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_tile_mid"
+            android:paddingVertical="13dp"
+            android:clickable="true" android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvScreenStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OFF"
+                android:textColor="@color/pl_muted"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="LAYAR"
+                android:textColor="#77839A"
+                android:textSize="8sp"
+                android:letterSpacing="0.06" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Ketuk kotak untuk pengaturan · ketuk LAYAR untuk nyala/mati"
+        android:textColor="#4A5568"
+        android:textSize="8.5sp" />
+
+    <!-- SECTION: KONFIGURASI (bisa dilipat) — baris ketuk lebar -->
+    <LinearLayout
+        android:id="@+id/headKonfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:minHeight="52dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:clickable="true" android:focusable="true"
+        android:background="@drawable/bg_tile_mid">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="KONFIGURASI"
+            android:textColor="#F7FAFC"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:background="#1A2230" />
+
+        <TextView
+            android:id="@+id/tvChevron"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="▾"
+            android:textColor="#7DD8EA"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/cardKonfig"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:background="@drawable/bg_card"
+        android:padding="14dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WEBHOOK URL"
+            android:textColor="#77839A"
+            android:textSize="9.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <EditText
+            android:id="@+id/etUrl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/bg_input"
+            android:hint="https://server-anda.com/api/webhook"
+            android:inputType="textUri"
+            android:padding="11dp"
+            android:textColor="@color/pl_text"
+            android:textColorHint="#4A5568"
+            android:textSize="11.5sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="FILTER KEYWORD (PISAH KOMA)"
+            android:textColor="#77839A"
+            android:textSize="9.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.12" />
+
+        <EditText
+            android:id="@+id/etKeywords"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:background="@drawable/bg_input"
+            android:hint="pembayaran,diterima,di terima"
+            android:inputType="text"
+            android:padding="11dp"
+            android:textColor="@color/pl_text"
+            android:textColorHint="#4A5568"
+            android:textSize="11.5sp" />
+
+        <TextView
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:background="@drawable/bg_button_save"
+            android:gravity="center"
+            android:paddingVertical="11dp"
+            android:text="SIMPAN PERUBAHAN"
+            android:textColor="@color/pl_accent"
+            android:textSize="11.5sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:clickable="true" android:focusable="true" />
+    </LinearLayout>
+
+    <!-- TOMBOL TES -->
+    <TextView
+        android:id="@+id/btnTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/bg_button_primary"
+        android:gravity="center"
+        android:paddingVertical="13dp"
+        android:text="TES KIRIM KE SERVER"
+        android:textColor="@color/pl_text"
+        android:textSize="12.5sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:clickable="true" android:focusable="true" />
+
+    <!-- LOG -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOG AKTIVITAS"
+            android:textColor="#7DD8EA"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.22" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_weight="1"
+            android:layout_marginStart="12dp"
+            android:background="#1A2230" />
+
+        <TextView
+            android:id="@+id/btnClearLog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BERSIHKAN"
+            android:textColor="@color/pl_text"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.08"
+            android:background="@drawable/bg_button_save"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="9dp"
+            android:clickable="true" android:focusable="true" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_log_box"
+        android:padding="13dp"
+        android:text="Belum ada aktivitas."
+        android:textColor="#88FFFFFF"
+        android:textSize="11sp"
+        android:lineSpacingExtra="3dp" />
+
+    <!-- Pagination log -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/btnLogPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="‹ BARU"
+            android:textColor="@color/pl_text"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_button_save"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="9dp"
+            android:clickable="true" android:focusable="true" />
+
+        <TextView
+            android:id="@+id/tvLogPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="14dp"
+            android:text="1/1"
+            android:textColor="#77839A"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/btnLogNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LAMA ›"
+            android:textColor="@color/pl_text"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:background="@drawable/bg_button_save"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="9dp"
+            android:clickable="true" android:focusable="true" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pl_dark">#000000</color>
+    <color name="pl_card">#0E0E0E</color>
+    <color name="pl_card2">#161616</color>
+    <color name="pl_accent">#00D2FF</color>
+    <color name="pl_accent2">#00F3FF</color>
+    <color name="pl_text">#F1F5F9</color>
+    <color name="pl_muted">#99AABB</color>
+    <color name="pl_gold">#F5B04C</color>
+    <color name="pl_danger">#EF5350</color>
+    <color name="pl_ok">#34D399</color>
+    <color name="pl_warn">#F59E0B</color>
+</resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.PayListen" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/pl_accent</item>
+        <item name="colorPrimaryDark">@color/pl_dark</item>
+        <item name="colorAccent">@color/pl_accent2</item>
+        <item name="android:windowBackground">@color/pl_dark</item>
+        <item name="android:statusBarColor">@color/pl_dark</item>
+        <item name="android:navigationBarColor">@color/pl_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <!-- Android 15 (API 35): keluar dari pemaksaan edge-to-edge agar konten tidak tertutup status bar -->
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+    </style>
+</resources>
