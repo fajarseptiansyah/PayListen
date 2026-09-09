@@ -147,28 +147,6 @@ POST {base}/api/pay/heartbeat      Content-Type: application/json
 
 ## 🧑‍💻 Contoh Penerima Server
 
-### Endpoint yang dipakai server utama (`index.js` di STB):
-```js
-// Webhook QRIS — URL yang diisi di app
-app.post('/api/webhook-qris', async (req, res) => {
-  const { sender, nominal, message } = req.body;
-  // cocokkan nominal dengan qris_pending → kredit saldo → generate voucher
-  ...
-});
-
-// Tes — dipakai tombol tes (opsional)
-app.post('/api/pay/test', (req, res) => res.json({ status:'ok' }));
-
-// Heartbeat — dipantau App Admin
-app.post('/api/pay/heartbeat', (req, res) => {
-  fs.writeFileSync(PAY_STATUS_FILE, JSON.stringify({ ...req.body, lastSeen: Date.now() }));
-  res.json({ status:'ok' });
-});
-
-// Status — dibaca App Admin (card Status PayListen)
-app.get('/api/pay/status', authMiddleware, (req, res) => { ... });
-```
-
 ### Penerima umum (PHP / Node / Python / Apps Script)
 Lihat pola di bawah — cukup baca JSON `{nominal, message}` lalu balas 2xx:
 
