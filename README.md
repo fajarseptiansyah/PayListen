@@ -10,6 +10,8 @@ App Android kecil yang berjalan di satu HP khusus untuk **menangkap notifikasi p
 
 > 🔓 **Repo PUBLIK — bebas dipakai & dimodifikasi** (lisensi MIT). Tanpa kredensial, tanpa server default.
 
+> 🤝 **Mau berkontribusi?** Baca [CONTRIBUTING.md](CONTRIBUTING.md) — fork, ubah, Pull Request. Lisensi: [LICENSE](LICENSE).
+
 ---
 
 ## ✨ Fitur
