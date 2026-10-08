@@ -29,9 +29,20 @@ class PayListenListener : NotificationListenerService() {
         if (sbn == null) return
         try {
             val extras = sbn.notification?.extras ?: return
-            val title = extras.getCharSequence(Notification.EXTRA_TITLE)?.toString() ?: ""
-            val text = extras.getCharSequence(Notification.EXTRA_TEXT)?.toString() ?: ""
-            val full = "$title $text"
+            
+            // Kumpulkan SEMUA teks dari extras notifikasi (mengatasi BCA yg pakai EXTRA_BIG_TEXT atau format lain)
+            val sb = StringBuilder()
+            for (key in extras.keySet()) {
+                val v = extras.get(key)
+                if (v is CharSequence) sb.append(v.toString()).append(" ")
+                else if (v is Array<*> && v.isArrayOf<CharSequence>()) {
+                    v.forEach { if (it != null) sb.append(it.toString()).append(" ") }
+                }
+            }
+            val ticker = sbn.notification?.tickerText?.toString() ?: ""
+            sb.append(ticker)
+            
+            val full = sb.toString()
 
             // Hanya proses notifikasi pembayaran diterima (mengandung "pembayaran" + "Rp")
             if (!isPaymentNotification(full)) return
@@ -63,8 +74,8 @@ class PayListenListener : NotificationListenerService() {
     }
 
     private fun extractAmount(text: String): Long? {
-        // Cari "Rp" diikuti angka (bisa pakai pemisah ribuan titik/koma)
-        val regex = Regex("""[Rr][Pp]\s*([0-9][0-9.,]*)""")
+        // Cari "Rp" diikuti angka (bisa spasi apa saja: \s, non-breaking space, atau tanpa spasi)
+        val regex = Regex("""[Rr][Pp][\s\u00A0]*([0-9][0-9.,]*)""")
         val m = regex.find(text) ?: return null
         val raw = m.groupValues[1]
         // Ambil digit saja — buang titik/koma pemisah ribuan
