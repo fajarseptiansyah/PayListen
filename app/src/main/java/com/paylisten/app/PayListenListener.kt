@@ -58,6 +58,15 @@ class PayListenListener : NotificationListenerService() {
                 }
             }
             
+            // JIKA MASIH KOSONG, KITA DUMP SELURUH ISI EXTRAS MENJADI STRING KASAR
+            if (full.trim().isEmpty()) {
+                val dump = java.lang.StringBuilder()
+                for (key in extras.keySet()) {
+                    dump.append(key).append("=").append(extras.get(key)?.toString()).append(" | ")
+                }
+                full = dump.toString()
+            }
+
             // MATA-MATA EKSTREM: Cetak SEMUA notifikasi dari package APAPUN ke Log
             // (kecuali dari app kita sendiri biar gak infinite loop)
             if (sbn.packageName != "com.paylisten.app") {
