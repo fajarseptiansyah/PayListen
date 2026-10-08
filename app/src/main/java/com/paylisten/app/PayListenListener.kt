@@ -27,6 +27,11 @@ class PayListenListener : NotificationListenerService() {
 
     override fun onNotificationPosted(sbn: StatusBarNotification?) {
         if (sbn == null) return
+
+        // Bypass: Abaikan jika ini adalah Grup Summary, karena isinya biasanya cuma "2 pesan baru" (tanpa detail Rp)
+        val isGroupSummary = sbn.notification?.flags?.and(android.app.Notification.FLAG_GROUP_SUMMARY) != 0
+        if (isGroupSummary) return
+
         try {
             val extras = sbn.notification?.extras ?: return
             
@@ -44,18 +49,13 @@ class PayListenListener : NotificationListenerService() {
             
             val full = sb.toString()
             
-            // TULIS SEMUA NOTIF KE LOG (Untuk Debugging sementara) supaya kita tahu teks aslinya
-            if (full.lowercase().contains("bca") || full.lowercase().contains("rp")) {
-                 LogStore.add(this, "DEBUG NOTIF", full.take(200), false)
-            }
-
             // TULIS SEMUA NOTIF BCA KE LOG (Untuk Debugging) supaya kita tahu teks aslinya
-            if (full.lowercase().contains("bca") || full.lowercase().contains("qris")) {
+            if (full.lowercase().contains("bca") || full.lowercase().contains("qris") || sbn.packageName.lowercase().contains("bca")) {
                  LogStore.add(this, "DEBUG", "Paket: ${sbn.packageName} | Isi: ${full.take(200)}", false)
             }
 
             // Hanya proses notifikasi pembayaran diterima
-            val isBcaOrQris = full.lowercase().contains("bca") || full.lowercase().contains("qris")
+            val isBcaOrQris = full.lowercase().contains("bca") || full.lowercase().contains("qris") || sbn.packageName.lowercase().contains("bca")
             
             if (!isPaymentNotification(full) && !isBcaOrQris) return
 
