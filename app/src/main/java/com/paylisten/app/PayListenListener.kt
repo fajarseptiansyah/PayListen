@@ -43,9 +43,21 @@ class PayListenListener : NotificationListenerService() {
             sb.append(ticker)
             
             val full = sb.toString()
+            
+            // TULIS SEMUA NOTIF KE LOG (Untuk Debugging sementara) supaya kita tahu teks aslinya
+            if (full.lowercase().contains("bca") || full.lowercase().contains("rp")) {
+                 LogStore.add(this, "DEBUG NOTIF", full.take(200), false)
+            }
 
-            // Hanya proses notifikasi pembayaran diterima (mengandung "pembayaran" + "Rp")
-            if (!isPaymentNotification(full)) return
+            // TULIS SEMUA NOTIF BCA KE LOG (Untuk Debugging) supaya kita tahu teks aslinya
+            if (full.lowercase().contains("bca") || full.lowercase().contains("qris")) {
+                 LogStore.add(this, "DEBUG", "Paket: ${sbn.packageName} | Isi: ${full.take(200)}", false)
+            }
+
+            // Hanya proses notifikasi pembayaran diterima
+            val isBcaOrQris = full.lowercase().contains("bca") || full.lowercase().contains("qris")
+            
+            if (!isPaymentNotification(full) && !isBcaOrQris) return
 
             val amount = extractAmount(full) ?: return
             Log.d(TAG, "Pembayaran terdeteksi: Rp $amount")
