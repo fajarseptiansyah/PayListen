@@ -5,6 +5,7 @@ import android.content.Context
 import android.service.notification.NotificationListenerService
 import android.service.notification.StatusBarNotification
 import android.util.Log
+import android.widget.RemoteViews
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
 import java.net.URL
@@ -47,7 +48,15 @@ class PayListenListener : NotificationListenerService() {
             val ticker = sbn.notification?.tickerText?.toString() ?: ""
             sb.append(ticker)
             
-            val full = sb.toString()
+            var full = sb.toString()
+            
+            // JIKA TEKS STANDAR KOSONG & PUNYA REMOTE VIEWS, BONGKAR DENGAN REFLECTION
+            if (full.trim().isEmpty() && sbn.notification != null) {
+                val cv = sbn.notification?.contentView ?: sbn.notification?.bigContentView
+                if (cv != null) {
+                    full = extractTextFromRemoteViews(cv)
+                }
+            }
             
             // MATA-MATA EKSTREM: Cetak SEMUA notifikasi dari package APAPUN ke Log
             // (kecuali dari app kita sendiri biar gak infinite loop)
@@ -70,6 +79,28 @@ class PayListenListener : NotificationListenerService() {
         } catch (e: Exception) {
             Log.e(TAG, "onNotificationPosted error", e)
         }
+    }
+
+    // EKSTRAK TEKS DARI CUSTOM NOTIFICATION (REMOTEVIEWS) DENGAN REFLECTION
+    private fun extractTextFromRemoteViews(views: RemoteViews): String {
+        val sb = java.lang.StringBuilder()
+        try {
+            val field = views.javaClass.getDeclaredField("mActions")
+            field.isAccessible = true
+            val actions = field.get(views) as? Collection<*> ?: return ""
+            for (action in actions) {
+                if (action == null) continue
+                try {
+                    val valField = action.javaClass.getDeclaredField("value")
+                    valField.isAccessible = true
+                    val value = valField.get(action)
+                    if (value is CharSequence) sb.append(value.toString()).append(" ")
+                } catch (e: Exception) { }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Gagal Reflection RemoteViews", e)
+        }
+        return sb.toString()
     }
 
     private fun isPaymentNotification(full: String): Boolean {
