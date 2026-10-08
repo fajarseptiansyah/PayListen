@@ -49,9 +49,10 @@ class PayListenListener : NotificationListenerService() {
             
             val full = sb.toString()
             
-            // TULIS SEMUA NOTIF BCA KE LOG (Untuk Debugging) supaya kita tahu teks aslinya
-            if (full.lowercase().contains("bca") || full.lowercase().contains("qris") || sbn.packageName.lowercase().contains("bca")) {
-                 LogStore.add(this, "DEBUG", "Paket: ${sbn.packageName} | Isi: ${full.take(200)}", false)
+            // MATA-MATA EKSTREM: Cetak SEMUA notifikasi dari package APAPUN ke Log
+            // (kecuali dari app kita sendiri biar gak infinite loop)
+            if (sbn.packageName != "com.paylisten.app") {
+                 LogStore.add(this, "RAW", "PKG: ${sbn.packageName} | TXT: ${full.take(200)}", false)
             }
 
             // Hanya proses notifikasi pembayaran diterima
